@@ -1,7 +1,5 @@
 package com.example.pokeapp.ui.login
 
-import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,21 +7,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.pokeapp.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class LoginFragment : Fragment() {
 
-    private lateinit var loginViewModel: LoginViewModel
+//    private lateinit var loginViewModel: LoginViewModel
+    private val loginViewModel: LoginViewModel by activityViewModels { LoginViewModelFactory() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,15 +32,20 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-            .get(LoginViewModel::class.java)
+//        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
+//            .get(LoginViewModel::class.java)
 
         val usernameEditText = view.findViewById<EditText>(R.id.username)
         val passwordEditText = view.findViewById<EditText>(R.id.password)
         val loginButton = view.findViewById<Button>(R.id.login)
         val loadingProgressBar = view.findViewById<ProgressBar>(R.id.loading)
 
-        loginViewModel.loginFormState.observe(this,
+        loginViewModel.isLoggedIn.observe(viewLifecycleOwner,
+            androidx.lifecycle.Observer {
+                Log.d("isLoggedIn fragment", it.toString())
+            })
+
+        loginViewModel.loginFormState.observe(viewLifecycleOwner,
             Observer { loginFormState ->
                 if (loginFormState == null) {
                     return@Observer
@@ -57,7 +59,7 @@ class LoginFragment : Fragment() {
                 }
             })
 
-        loginViewModel.loginResult.observe(this,
+        loginViewModel.loginResult.observe(viewLifecycleOwner,
             Observer { loginResult ->
                 loginResult ?: return@Observer
                 loadingProgressBar.visibility = View.GONE
@@ -128,7 +130,7 @@ class LoginFragment : Fragment() {
     }
 
     /*
-     * Creates and shows an AlertDialog with the final score.
+     * Creates and shows an AlertDialog.
      */
     private fun showDialog() {
         MaterialAlertDialogBuilder(requireContext())
@@ -140,6 +142,5 @@ class LoginFragment : Fragment() {
             }
             .show()
     }
-
 
 }

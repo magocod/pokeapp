@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -24,7 +24,10 @@ import com.google.android.material.snackbar.Snackbar
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var _menu: Menu
+
+//    private lateinit var loginViewModel: LoginViewModel
+    private val loginViewModel: LoginViewModel by viewModels { LoginViewModelFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,13 +35,8 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-            .get(LoginViewModel::class.java)
-
-        loginViewModel.isLoggedIn.observe(this,
-            Observer {
-                Log.d("isLoggedIn", it.toString())
-            })
+//        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
+//            .get(LoginViewModel::class.java)
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -69,23 +67,50 @@ class MainActivity : AppCompatActivity() {
 //            navController.navigate(R.id.action_global_settingsFragment)
             navController.navigate(R.id.action_global_capturePokemonFragment)
         }
+
+
+        loginViewModel.isLoggedIn.observe(this,
+            androidx.lifecycle.Observer {
+                Log.d("isLoggedIn main", it.toString())
+                if (it) {
+                    fab.visibility = View.VISIBLE
+                    if (this::_menu.isInitialized) {
+                        visibleOptionMenu(_menu, true)
+                    }
+                } else {
+                    fab.visibility = View.GONE
+                    if (this::_menu.isInitialized) {
+                        visibleOptionMenu(_menu, false)
+                    }
+                }
+            })
+    }
+
+    private fun visibleOptionMenu(menu: Menu, isVisible: Boolean) {
+        menu.findItem(R.id.action_logout).setVisible(isVisible)
+        menu.findItem(R.id.action_settings).setVisible(isVisible)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
+        _menu = menu
+        visibleOptionMenu(menu, false)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle item selection
+        val navController = findNavController(R.id.nav_host_fragment)
         return when (item.itemId) {
             R.id.action_settings -> {
-                // pass
+                navController.navigate(R.id.settingsFragment)
                 true
             }
             R.id.action_logout -> {
                 loginViewModel.logout()
+//                System.exit(0);
+                finishAffinity()
                 true
             }
             else -> super.onOptionsItemSelected(item)
