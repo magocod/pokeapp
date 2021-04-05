@@ -1,5 +1,7 @@
 package com.example.pokeapp.ui.login
 
+import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,17 +9,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.view.inputmethod.EditorInfo
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.pokeapp.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class LoginFragment : Fragment() {
 
@@ -59,6 +61,7 @@ class LoginFragment : Fragment() {
             Observer { loginResult ->
                 loginResult ?: return@Observer
                 loadingProgressBar.visibility = View.GONE
+                Log.d("loginResult", loginResult.toString());
                 loginResult.error?.let {
                     showLoginFailed(it)
                 }
@@ -118,7 +121,25 @@ class LoginFragment : Fragment() {
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
-        val appContext = context?.applicationContext ?: return
-        Toast.makeText(appContext, errorString, Toast.LENGTH_LONG).show()
+        Log.d("showLoginFailed", errorString.toString());
+        showDialog()
+//        val appContext = context?.applicationContext ?: return
+//        Toast.makeText(requireContext(), errorString, Toast.LENGTH_LONG).show()
     }
+
+    /*
+     * Creates and shows an AlertDialog with the final score.
+     */
+    private fun showDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.unhandled_error))
+            .setMessage(R.string.unhandled_error)
+            .setCancelable(true)
+            .setPositiveButton(getString(R.string.exit)) { _, _ ->
+                // pass
+            }
+            .show()
+    }
+
+
 }
