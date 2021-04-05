@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
 //            navController.navigate(R.id.action_global_settingsFragment)
-            navController.navigate(R.id.action_global_capturePokemonFragment)
+            navController.navigate(R.id.action_global_regionFragment)
         }
 
 
