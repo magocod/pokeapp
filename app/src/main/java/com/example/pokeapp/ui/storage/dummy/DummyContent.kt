@@ -1,6 +1,7 @@
-package com.example.pokeapp.ui.team.dummy
+package com.example.pokeapp.ui.storage.dummy
 
-import java.util.*
+import java.util.ArrayList
+import java.util.HashMap
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -20,7 +21,7 @@ object DummyContent {
      */
     val ITEM_MAP: MutableMap<String, DummyItem> = HashMap()
 
-    private val COUNT = 6
+    private val COUNT = 25
 
     init {
         // Add some sample items.

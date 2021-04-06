@@ -15,6 +15,9 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/nav_home"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_nav_home_to_regionFragment"
+            app:destination="@id/regionFragment" />
     </fragment>
 
     <fragment
@@ -48,7 +51,11 @@
         android:id="@+id/nav_team"
         android:name="com.example.pokeapp.ui.team.TeamFragment"
         android:label="@string/menu_team"
-        tools:layout="@layout/fragment_team_list" />
+        tools:layout="@layout/fragment_team_list" >
+        <action
+            android:id="@+id/action_nav_team_to_specieFragment"
+            app:destination="@id/specieFragment" />
+    </fragment>
     <fragment
         android:id="@+id/captureFullscreenFragment"
         android:name="com.example.pokeapp.ui.capture.CaptureFullscreenFragment"
@@ -91,4 +98,18 @@
         android:name="com.example.pokeapp.ui.location.LocationFragment"
         android:label="fragment_location_list"
         tools:layout="@layout/fragment_location_list" />
+    <fragment
+        android:id="@+id/nav_storage"
+        android:name="com.example.pokeapp.ui.storage.StorageFragment"
+        android:label="@string/menu_storage"
+        tools:layout="@layout/fragment_storage_list" >
+        <action
+            android:id="@+id/action_nav_storage_to_specieFragment"
+            app:destination="@id/specieFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/specieFragment"
+        android:name="com.example.pokeapp.ui.pokemon.SpecieFragment"
+        android:label="specie_fragment"
+        tools:layout="@layout/specie_fragment" />
 </navigation>

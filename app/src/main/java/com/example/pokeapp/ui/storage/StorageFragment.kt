@@ -1,4 +1,4 @@
-package com.example.pokeapp.ui.team
+package com.example.pokeapp.ui.storage
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokeapp.R
-import com.example.pokeapp.ui.team.dummy.DummyContent
+import com.example.pokeapp.ui.storage.dummy.DummyContent
 
 /**
  * A fragment representing a list of Items.
  */
-class TeamFragment : Fragment() {
+class StorageFragment : Fragment() {
 
-    private var columnCount = 1
+    private var columnCount = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +30,7 @@ class TeamFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_team_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_storage_list, container, false)
 
         // Set the adapter
         if (view is RecyclerView) {
@@ -39,7 +39,7 @@ class TeamFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = TeamRecyclerViewAdapter(DummyContent.ITEMS)
+                adapter = StorageRecyclerViewAdapter(DummyContent.ITEMS)
             }
         }
         return view
@@ -53,7 +53,7 @@ class TeamFragment : Fragment() {
         // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
-            TeamFragment().apply {
+            StorageFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -16,9 +15,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.pokeapp.ui.login.LoginViewModel
 import com.example.pokeapp.ui.login.LoginViewModelFactory
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 
 
 class MainActivity : AppCompatActivity() {
@@ -46,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_team
+                R.id.nav_team, R.id.nav_storage
 //                R.xml.root_preferences
             ), drawerLayout
         )
@@ -60,25 +58,25 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-//            navController.navigate(R.id.action_global_settingsFragment)
-            navController.navigate(R.id.action_global_regionFragment)
-        }
+//        val fab: FloatingActionButton = findViewById(R.id.fab)
+//        fab.setOnClickListener { view ->
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show()
+////            navController.navigate(R.id.action_global_settingsFragment)
+//            navController.navigate(R.id.action_global_regionFragment)
+//        }
 
 
         loginViewModel.isLoggedIn.observe(this,
             androidx.lifecycle.Observer {
                 Log.d("isLoggedIn main", it.toString())
                 if (it) {
-                    fab.visibility = View.VISIBLE
+//                    fab.visibility = View.VISIBLE
                     if (this::_menu.isInitialized) {
                         visibleOptionMenu(_menu, true)
                     }
                 } else {
-                    fab.visibility = View.GONE
+//                    fab.visibility = View.GONE
                     if (this::_menu.isInitialized) {
                         visibleOptionMenu(_menu, false)
                     }
@@ -87,8 +85,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun visibleOptionMenu(menu: Menu, isVisible: Boolean) {
-        menu.findItem(R.id.action_logout).setVisible(isVisible)
-        menu.findItem(R.id.action_settings).setVisible(isVisible)
+        menu.findItem(R.id.action_logout).isVisible = isVisible
+        menu.findItem(R.id.action_settings).isVisible = isVisible
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -110,7 +108,8 @@ class MainActivity : AppCompatActivity() {
             R.id.action_logout -> {
                 loginViewModel.logout()
 //                System.exit(0);
-                finishAffinity()
+//                finishAffinity()
+                showLogoutDialog()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -120,6 +119,20 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun showLogoutDialog() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.temporary_title))
+            .setMessage(getString(R.string.temporary_message))
+            .setCancelable(false)
+            .setNegativeButton(getString(R.string.cancel)) { _, _ ->
+                // pass
+            }
+            .setPositiveButton(getString(R.string.confirm)) { _, _ ->
+                finishAffinity()
+            }
+            .show()
     }
 
 }
