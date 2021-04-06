@@ -8,14 +8,20 @@
     <string name="action_settings">Settings</string>
     <string name="action_logout">Logout</string>
 
+    <!-- default text -->
     <string name="temporary_title">Temporary title</string>
     <string name="temporary_message">Temporary message</string>
     <string name="unhandled_error">Unhandled error</string>
 
+    <string name="poke_status">Status: 000</string>
+
+    <!-- buttons texts -->
     <string name="exit">Exit</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
+    <string name="button">Button</string>
 
+    <!-- left bar items -->
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
@@ -27,12 +33,14 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
+    <string name="action_log_in">Log in</string>
     <string name="welcome">"Welcome!"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="example_username">androvirtual@gmail.com</string>
     <string name="example_user_password">123456</string>
+
     <!-- Preference Titles -->
     <string name="setting">Setting</string>
     <string name="messages_header">Messages</string>
@@ -141,4 +149,6 @@
     </string>
     <string name="capture_pokemon">capture pokemon</string>
     <string name="moves">Moves</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

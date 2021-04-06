@@ -1,9 +1,11 @@
 package com.example.pokeapp.ui.location
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokeapp.R
 import com.example.pokeapp.ui.location.dummy.DummyContent.DummyItem
@@ -26,6 +28,11 @@ class LocationRecyclerViewAdapter(
         val item = values[position]
         holder.idView.text = item.id
         holder.contentView.text = item.content
+        holder.itemView.setOnClickListener() {
+            Log.d("LocationRecycler", "position: $position id: ${item.id}")
+            val navController = Navigation.findNavController(holder.itemView)
+            navController.navigate(R.id.action_locationFragment_to_capturePokemonFragment)
+        }
     }
 
     override fun getItemCount(): Int = values.size

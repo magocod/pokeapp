@@ -1,40 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
-    android:padding="6dip" >
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:minHeight="64dp">
 
     <ImageView
-        android:id="@+id/icon"
+        android:adjustViewBounds="true"
+        android:id="@+id/mtrl_list_item_icon"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="6dip"
-        android:src="@drawable/ic_baseline_home_24" />
+        android:layout_height="wrap_content"
+        android:src="@drawable/bannete_sprite"
+        android:padding="16dp"/>
 
     <TextView
         android:id="@+id/item_number"
-        android:layout_width="fill_parent"
-        android:layout_height="26dip"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@id/icon"
-        android:textSize="12sp"
-        tools:text="Description" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/mtrl_list_item_icon"
+        android:maxLines="1"
+        android:paddingTop="16dp"
+        android:paddingEnd="16dp"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        tools:text="first text" />
 
     <TextView
         android:id="@+id/content"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignWithParentIfMissing="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@id/icon"
-        android:gravity="center_vertical"
-        android:textSize="16sp"
-        tools:text="Example application" />
+        android:layout_below="@id/item_number"
+        android:layout_gravity="center_vertical"
+        android:layout_toEndOf="@id/mtrl_list_item_icon"
+        android:maxLines="2"
+        android:paddingEnd="16dp"
+        android:textAppearance="?attr/textAppearanceBody2"
+        tools:text="second text" />
 
 </RelativeLayout>
 

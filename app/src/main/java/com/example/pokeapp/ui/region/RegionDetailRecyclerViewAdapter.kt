@@ -29,7 +29,7 @@ class RegionDetailRecyclerViewAdapter(
         holder.idView.text = item.id
         holder.contentView.text = item.content
         holder.itemView.setOnClickListener() {
-            Log.d("LocationRecycler", "position: $position id: ${item.id}")
+            Log.d("RegionDetailRecycler", "position: $position id: ${item.id}")
             val navController = Navigation.findNavController(holder.itemView)
             navController.navigate(R.id.action_regionDetailFragment_to_locationFragment)
         }
