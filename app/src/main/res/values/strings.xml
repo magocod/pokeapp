@@ -17,6 +17,9 @@
     <string name="poke_status">Status: 000</string>
     <string name="is_party_member">Is party member</string>
 
+    <string name="regions">Regions</string>
+    <string name="region_detail">Region {regionName}</string>
+
     <!-- buttons texts -->
     <string name="exit">Exit</string>
     <string name="confirm">Confirm</string>

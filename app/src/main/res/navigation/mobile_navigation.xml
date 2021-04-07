@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/capturePokemonFragment">
+    app:startDestination="@id/regionFragment">
 
     <fragment
         android:id="@+id/nav_home"
@@ -51,7 +51,7 @@
         android:id="@+id/nav_team"
         android:name="com.example.pokeapp.ui.team.TeamFragment"
         android:label="@string/menu_team"
-        tools:layout="@layout/fragment_team_list" >
+        tools:layout="@layout/fragment_team_list">
         <action
             android:id="@+id/action_nav_team_to_specieFragment"
             app:destination="@id/specieFragment" />
@@ -72,8 +72,8 @@
     <fragment
         android:id="@+id/regionFragment"
         android:name="com.example.pokeapp.ui.region.RegionFragment"
-        android:label="fragment_region_list"
-        tools:layout="@layout/fragment_region_list" >
+        android:label="@string/regions"
+        tools:layout="@layout/fragment_region_list">
         <action
             android:id="@+id/action_regionFragment_to_regionDetailFragment"
             app:destination="@id/regionDetailFragment" />
@@ -84,17 +84,23 @@
     <fragment
         android:id="@+id/regionDetailFragment"
         android:name="com.example.pokeapp.ui.region.RegionDetailFragment"
-        android:label="fragment_region_detail_list"
-        tools:layout="@layout/fragment_region_detail_list" >
+        android:label="@string/region_detail"
+        tools:layout="@layout/fragment_region_detail_list">
         <action
             android:id="@+id/action_regionDetailFragment_to_locationFragment"
             app:destination="@id/locationFragment" />
+        <argument
+            android:name="regionId"
+            app:argType="integer"
+            />
+        <argument android:name="regionName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/locationFragment"
         android:name="com.example.pokeapp.ui.location.LocationFragment"
         android:label="fragment_location_list"
-        tools:layout="@layout/fragment_location_list" >
+        tools:layout="@layout/fragment_location_list">
         <action
             android:id="@+id/action_locationFragment_to_capturePokemonFragment"
             app:destination="@id/capturePokemonFragment" />
@@ -103,7 +109,7 @@
         android:id="@+id/nav_storage"
         android:name="com.example.pokeapp.ui.storage.StorageFragment"
         android:label="@string/menu_storage"
-        tools:layout="@layout/fragment_storage_list" >
+        tools:layout="@layout/fragment_storage_list">
         <action
             android:id="@+id/action_nav_storage_to_specieFragment"
             app:destination="@id/specieFragment" />

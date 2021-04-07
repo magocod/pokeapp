@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokeapp.R
+import com.example.pokeapp.network.Region
 import com.example.pokeapp.ui.region.dummy.DummyContent.DummyItem
 
 
@@ -16,7 +17,7 @@ import com.example.pokeapp.ui.region.dummy.DummyContent.DummyItem
  * TODO: Replace the implementation with code for your data type.
  */
 class RegionRecyclerViewAdapter(
-    private val values: List<DummyItem>
+    private val values: MutableList<Region>
 ) : RecyclerView.Adapter<RegionRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,12 +28,17 @@ class RegionRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
+        holder.idView.text = item.id.toString()
+        holder.contentView.text = item.name
         holder.itemView.setOnClickListener() {
             Log.d("RegionRecycler", "position: $position id: ${item.id}")
             val navController = Navigation.findNavController(holder.itemView)
-            navController.navigate(R.id.action_regionFragment_to_regionDetailFragment)
+            val action = RegionFragmentDirections.actionRegionFragmentToRegionDetailFragment(
+                regionId = item.id,
+                regionName = item.name
+            )
+//            navController.navigate(R.id.action_regionFragment_to_regionDetailFragment)
+            navController.navigate(action)
         }
 
     }
@@ -46,5 +52,12 @@ class RegionRecyclerViewAdapter(
         override fun toString(): String {
             return super.toString() + " '" + contentView.text + "'"
         }
+    }
+
+    fun updateData(regions: List<Region>) {
+        values.clear()
+        values.addAll(regions)
+        notifyDataSetChanged()
+//        Log.d("recycler update", values.toString())
     }
 }

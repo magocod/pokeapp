@@ -5,16 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokeapp.R
-import com.example.pokeapp.ui.region.dummy.DummyContent
+import com.example.pokeapp.network.Region
+import com.example.pokeapp.ui.PokemonViewModel
+import com.example.pokeapp.ui.PokemonViewModelFactory
 
 /**
  * A fragment representing a list of Items.
  */
 class RegionFragment : Fragment() {
+
+    private val pokemonViewModel: PokemonViewModel by activityViewModels() { PokemonViewModelFactory() }
+    private var recyclerView : RegionRecyclerViewAdapter? = null
 
     private var columnCount = 1
 
@@ -39,10 +45,28 @@ class RegionFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = RegionRecyclerViewAdapter(DummyContent.ITEMS)
+                adapter = RegionRecyclerViewAdapter(mutableListOf(Region(1, "error loading")))
+//                recyclerView = adapter
             }
+            recyclerView = view.adapter as RegionRecyclerViewAdapter
         }
+
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        pokemonViewModel.getRegions()
+
+        pokemonViewModel.regions.observe(viewLifecycleOwner,
+            androidx.lifecycle.Observer { regions ->
+//                Log.d("pokeVM regions", regions.toString())
+                recyclerView.let {
+//                    val mList = mutableListOf<Region>()
+//                    mList.addAll(regions)
+                    it!!.updateData(regions)
+                }
+            })
     }
 
     companion object {

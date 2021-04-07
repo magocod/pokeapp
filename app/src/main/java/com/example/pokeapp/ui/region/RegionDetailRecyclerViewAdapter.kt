@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokeapp.R
+import com.example.pokeapp.network.Location
 import com.example.pokeapp.ui.region.dummy.DummyContent.DummyItem
 
 /**
@@ -15,7 +16,7 @@ import com.example.pokeapp.ui.region.dummy.DummyContent.DummyItem
  * TODO: Replace the implementation with code for your data type.
  */
 class RegionDetailRecyclerViewAdapter(
-    private val values: List<DummyItem>
+    private val values: MutableList<Location>
 ) : RecyclerView.Adapter<RegionDetailRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,8 +27,8 @@ class RegionDetailRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
+        holder.idView.text = item.id.toString()
+        holder.contentView.text = item.name
         holder.itemView.setOnClickListener() {
             Log.d("RegionDetailRecycler", "position: $position id: ${item.id}")
             val navController = Navigation.findNavController(holder.itemView)
@@ -44,5 +45,12 @@ class RegionDetailRecyclerViewAdapter(
         override fun toString(): String {
             return super.toString() + " '" + contentView.text + "'"
         }
+    }
+
+    fun updateData(locations: List<Location>) {
+        values.clear()
+        values.addAll(locations)
+        notifyDataSetChanged()
+//        Log.d("recycler update", values.toString())
     }
 }

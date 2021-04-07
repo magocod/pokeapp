@@ -47,10 +47,10 @@ interface PokemonApiService {
     // regions
 
     @GET("regions")
-    suspend fun getRegions(): List<Region>
+    suspend fun getRegions(): Response<List<Region>>
 
     @GET("regions/{id}")
-    suspend fun getRegionDetail(@Path("id") id: Int): Region
+    suspend fun getRegionDetail(@Path("id") id: Int): Response<RegionDetail>
 }
 
 /**
