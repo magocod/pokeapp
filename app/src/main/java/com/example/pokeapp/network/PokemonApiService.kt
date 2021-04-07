@@ -8,8 +8,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 
 private const val AUTH_KEY = "Token"
-//private const val BASE_URL = "http://10.0.2.2:8000"
-private const val BASE_URL = "https://androvirtual12.pythonanywhere.com"
+private const val BASE_URL = "http://10.0.2.2:8000"
+//private const val BASE_URL = "https://androvirtual12.pythonanywhere.com"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())

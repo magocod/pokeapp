@@ -1,6 +1,7 @@
 package com.example.pokeapp.ui.capture
 
 import android.content.Context
+import android.content.DialogInterface
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pokeapp.R
 import com.example.pokeapp.ui.capture.dummy.DummyContent.DummyItem
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -28,7 +30,10 @@ class CapturePokemonRecyclerViewAdapter(
     private val values: List<DummyItem>
 ) : RecyclerView.Adapter<CapturePokemonRecyclerViewAdapter.ViewHolder>() {
 
+    private lateinit var _inflater:  LayoutInflater
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        _inflater = LayoutInflater.from(parent.context)
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.fragment_capture_pokemon, parent, false)
         return ViewHolder(view)
@@ -40,7 +45,8 @@ class CapturePokemonRecyclerViewAdapter(
         holder.contentView.text = item.content
         holder.itemView.setOnClickListener() {
             Log.d("CapturePRecycler", "position: $position id: ${item.id}")
-            showInputDialog(holder.itemView.context, item.content)
+//            showInputDialog(holder.itemView.context, item.content)
+            showCustomDialog(holder.itemView.context, _inflater)
         }
     }
 
@@ -67,6 +73,27 @@ class CapturePokemonRecyclerViewAdapter(
                 // pass
             }
             .show()
+    }
+
+    private fun showCustomDialog(context: Context, inflater: LayoutInflater) {
+        val builder = AlertDialog.Builder(context)
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        val view = inflater.inflate(R.layout.dialog_capture, null)
+        builder.setView(view)
+            // Add action buttons
+            .setPositiveButton(R.string.confirm,
+                DialogInterface.OnClickListener { dialog, id ->
+                    Log.d("customDialog", "confirm")
+                    val name = view.findViewById<TextView>(R.id.name).text.toString()
+                    val isPartyMember = view.findViewById<SwitchMaterial>(R.id.is_party_member).isChecked
+                    Log.d("customDialog data", "name: $name, isPartyMember: $isPartyMember")
+                })
+            .setNegativeButton(R.string.cancel,
+                DialogInterface.OnClickListener { dialog, id ->
+                    Log.d("customDialog", "cancel")
+                })
+        builder.show()
     }
 
     private fun showInputDialog(context: Context, pokemonName: String = "") {

@@ -13,7 +13,9 @@
     <string name="temporary_message">Temporary message</string>
     <string name="unhandled_error">Unhandled error</string>
 
+    <string name="name">Name</string>
     <string name="poke_status">Status: 000</string>
+    <string name="is_party_member">Is party member</string>
 
     <!-- buttons texts -->
     <string name="exit">Exit</string>

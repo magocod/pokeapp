@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.action_logout -> {
-                loginViewModel.logout()
+//                loginViewModel.logout()
 //                System.exit(0);
 //                finishAffinity()
                 showLogoutDialog()
@@ -130,6 +130,7 @@ class MainActivity : AppCompatActivity() {
                 // pass
             }
             .setPositiveButton(getString(R.string.confirm)) { _, _ ->
+                loginViewModel.logout()
                 finishAffinity()
             }
             .show()
