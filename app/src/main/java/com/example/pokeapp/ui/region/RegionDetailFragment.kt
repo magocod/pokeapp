@@ -55,7 +55,14 @@ class RegionDetailFragment : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
                 adapter =
-                    RegionDetailRecyclerViewAdapter(mutableListOf(Location(1, "loading error")))
+                    RegionDetailRecyclerViewAdapter(
+                        mutableListOf(
+                            Location(
+                                1,
+                                "loading error"
+                            )
+                        )
+                    )
             }
             recyclerView = view.adapter as RegionDetailRecyclerViewAdapter
         }

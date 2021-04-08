@@ -9,12 +9,18 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.net.toUri
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.pokeapp.R
+import com.example.pokeapp.network.Pokemon
 import com.example.pokeapp.ui.capture.dummy.DummyContent.DummyItem
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.switchmaterial.SwitchMaterial
@@ -27,10 +33,10 @@ import com.google.android.material.textfield.TextInputLayout
  * TODO: Replace the implementation with code for your data type.
  */
 class CapturePokemonRecyclerViewAdapter(
-    private val values: List<DummyItem>
+    private val values: MutableList<Pokemon>
 ) : RecyclerView.Adapter<CapturePokemonRecyclerViewAdapter.ViewHolder>() {
 
-    private lateinit var _inflater:  LayoutInflater
+    private lateinit var _inflater: LayoutInflater
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         _inflater = LayoutInflater.from(parent.context)
@@ -41,12 +47,26 @@ class CapturePokemonRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
+        holder.idView.text = item.id.toString()
+        holder.contentView.text = item.name
+
+        item.sprites.frontDefault?.let {
+            val imgUri = it.toUri().buildUpon().scheme("https").build()
+            holder.imageView.load(imgUri) {
+                placeholder(R.drawable.loading_animation)
+                error(R.drawable.ic_broken_image)
+            }
+        }
         holder.itemView.setOnClickListener() {
             Log.d("CapturePRecycler", "position: $position id: ${item.id}")
 //            showInputDialog(holder.itemView.context, item.content)
-            showCustomDialog(holder.itemView.context, _inflater)
+            showCustomDialog(
+                holder.itemView.context,
+                _inflater,
+                Navigation.findNavController(holder.itemView),
+                item.name,
+                item.id
+            )
         }
     }
 
@@ -55,10 +75,18 @@ class CapturePokemonRecyclerViewAdapter(
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val idView: TextView = view.findViewById(R.id.item_number)
         val contentView: TextView = view.findViewById(R.id.content)
+        val imageView: ImageView = view.findViewById(R.id.mtrl_list_item_icon)
 
         override fun toString(): String {
             return super.toString() + " '" + contentView.text + "'"
         }
+    }
+
+    fun updateData(items: List<Pokemon>) {
+        values.clear()
+        values.addAll(items)
+        notifyDataSetChanged()
+//        Log.d("recycler update", values.toString())
     }
 
     private fun showDialog(context: Context) {
@@ -75,25 +103,81 @@ class CapturePokemonRecyclerViewAdapter(
             .show()
     }
 
-    private fun showCustomDialog(context: Context, inflater: LayoutInflater) {
+    private fun showCustomDialog(
+        context: Context,
+        inflater: LayoutInflater,
+        navController: NavController,
+        pokemonName: String = "",
+        specieId: Int = 0
+    ) {
+
         val builder = AlertDialog.Builder(context)
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         val view = inflater.inflate(R.layout.dialog_capture, null)
+
+        val nameTextView: TextView = view.findViewById<TextView>(R.id.name)
+        val partySwitchMaterial = view.findViewById<SwitchMaterial>(R.id.is_party_member)
+
         builder.setView(view)
             // Add action buttons
             .setPositiveButton(R.string.confirm,
                 DialogInterface.OnClickListener { dialog, id ->
                     Log.d("customDialog", "confirm")
-                    val name = view.findViewById<TextView>(R.id.name).text.toString()
-                    val isPartyMember = view.findViewById<SwitchMaterial>(R.id.is_party_member).isChecked
+                    val name = nameTextView.text.toString()
+                    val isPartyMember = partySwitchMaterial.isChecked
                     Log.d("customDialog data", "name: $name, isPartyMember: $isPartyMember")
+                    val action =
+                        CapturePokemonFragmentDirections.actionCapturePokemonFragmentToCaptureResultFragment(
+                            specieId = specieId,
+                            nickName = name,
+                            isPartyMember = isPartyMember,
+                            pokemonName = pokemonName
+                        )
+                    navController.navigate(action)
                 })
             .setNegativeButton(R.string.cancel,
                 DialogInterface.OnClickListener { dialog, id ->
                     Log.d("customDialog", "cancel")
                 })
-        builder.show()
+
+        // finally, create the alert dialog and show it
+        nameTextView.text = pokemonName
+        val dialog = builder.create()
+        dialog.show()
+
+        // initially disable the positive button
+        if (pokemonName.isEmpty()) {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false
+        }
+
+        // edit text text change listener
+        nameTextView.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+            override fun beforeTextChanged(
+                p0: CharSequence?, p1: Int,
+                p2: Int, p3: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                p0: CharSequence?, p1: Int,
+                p2: Int, p3: Int
+            ) {
+                if (p0.isNullOrBlank()) {
+                    nameTextView.error = "Name is required."
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                        .isEnabled = false
+                } else {
+                    nameTextView.error = null
+//                    nameTextView.error = ""
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                        .isEnabled = true
+                }
+            }
+        })
     }
 
     private fun showInputDialog(context: Context, pokemonName: String = "") {

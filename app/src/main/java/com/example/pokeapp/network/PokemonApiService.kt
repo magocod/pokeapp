@@ -44,13 +44,23 @@ interface PokemonApiService {
     @POST("logout/")
     suspend fun logout(@Header("Authorization") token: String): Response<Void>
 
-    // regions
-
     @GET("regions")
     suspend fun getRegions(): Response<List<Region>>
 
     @GET("regions/{id}")
     suspend fun getRegionDetail(@Path("id") id: Int): Response<RegionDetail>
+
+    @GET("location/{id}")
+    suspend fun getLocationDetail(@Path("id") id: Int): Response<LocationDetail>
+
+    @GET("areas/{id}")
+    suspend fun getAreaDetail(@Path("id") id: Int): Response<AreaDetail>
+
+    @POST("pokemons/own/")
+    suspend fun pokemonCatch(
+        @Header("Authorization") token: String,
+        @Body pokemonCatch: PokemonCatch
+    ): Response<CapturedPokemon>
 }
 
 /**

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/regionFragment">
+    app:startDestination="@id/capturePokemonFragment">
 
     <fragment
         android:id="@+id/nav_home"
@@ -67,8 +67,20 @@
     <fragment
         android:id="@+id/capturePokemonFragment"
         android:name="com.example.pokeapp.ui.capture.CapturePokemonFragment"
-        android:label="fragment_capture_pokemon_list"
-        tools:layout="@layout/fragment_capture_pokemon_list" />
+        android:label="@string/area_detail"
+        tools:layout="@layout/fragment_capture_pokemon_list" >
+        <argument
+            android:name="areaId"
+            app:argType="integer"
+            android:defaultValue="249" />
+        <argument
+            android:name="areaName"
+            app:argType="string"
+            android:defaultValue="default" />
+        <action
+            android:id="@+id/action_capturePokemonFragment_to_captureResultFragment"
+            app:destination="@id/captureResultFragment" />
+    </fragment>
     <fragment
         android:id="@+id/regionFragment"
         android:name="com.example.pokeapp.ui.region.RegionFragment"
@@ -92,18 +104,27 @@
         <argument
             android:name="regionId"
             app:argType="integer"
-            />
+            android:defaultValue="1" />
         <argument android:name="regionName"
-            app:argType="string" />
+            app:argType="string"
+            android:defaultValue="default" />
     </fragment>
     <fragment
         android:id="@+id/locationFragment"
         android:name="com.example.pokeapp.ui.location.LocationFragment"
-        android:label="fragment_location_list"
+        android:label="@string/location_detail"
         tools:layout="@layout/fragment_location_list">
         <action
             android:id="@+id/action_locationFragment_to_capturePokemonFragment"
             app:destination="@id/capturePokemonFragment" />
+        <argument
+            android:name="locationId"
+            app:argType="integer"
+            android:defaultValue="8" />
+        <argument
+            android:name="locationName"
+            app:argType="string"
+            android:defaultValue="default" />
     </fragment>
     <fragment
         android:id="@+id/nav_storage"
@@ -119,4 +140,29 @@
         android:name="com.example.pokeapp.ui.pokemon.SpecieFragment"
         android:label="specie_fragment"
         tools:layout="@layout/specie_fragment" />
+    <fragment
+        android:id="@+id/captureResultFragment"
+        android:name="com.example.pokeapp.ui.capture.CaptureResultFragment"
+        android:label="@string/capture_result"
+        tools:layout="@layout/fragment_capture_result" >
+        <argument
+            android:name="specieId"
+            app:argType="integer"
+            android:defaultValue="1" />
+        <argument
+            android:name="nickName"
+            app:argType="string"
+            android:defaultValue="default" />
+        <argument
+            android:name="isPartyMember"
+            app:argType="boolean"
+            android:defaultValue="true" />
+        <argument
+            android:name="pokemonName"
+            app:argType="string"
+            android:defaultValue="default" />
+        <action
+            android:id="@+id/action_captureResultFragment_to_nav_team"
+            app:destination="@id/nav_team" />
+    </fragment>
 </navigation>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Media -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="194dp"
+            app:srcCompat="@drawable/bannete_sprite"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/temporary_title"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Title, secondary and supporting text -->
+            <TextView
+                android:id="@+id/item_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/temporary_title"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                />
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                tools:text="@string/temporary_message"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="?android:attr/textColorSecondary"
+                />
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/content_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:clickable="false"
+                android:text="@string/is_party_member"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="?android:attr/textColorSecondary"
+                />
+
+        </LinearLayout>
+
+        <!-- Buttons -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/confirm_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@string/confirm"
+                style="?attr/borderlessButtonStyle"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/team_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/team"
+                style="?attr/borderlessButtonStyle"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/back"
+                style="?attr/borderlessButtonStyle"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/debug_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/debug_login"
+                style="?attr/borderlessButtonStyle"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
+
+
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:background="?attr/selectableItemBackground"-->
+<!--    android:minHeight="64dp">-->
+
+<!--    <ImageView-->
+<!--        android:adjustViewBounds="true"-->
+<!--        android:id="@+id/mtrl_list_item_icon"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:src="@drawable/bannete_sprite"-->
+<!--        android:padding="16dp"/>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/item_number"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_toEndOf="@id/mtrl_list_item_icon"-->
+<!--        android:maxLines="1"-->
+<!--        android:paddingTop="16dp"-->
+<!--        android:paddingEnd="16dp"-->
+<!--        android:textAppearance="?attr/textAppearanceSubtitle1"-->
+<!--        tools:text="first text" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/content"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/item_number"-->
+<!--        android:layout_gravity="center_vertical"-->
+<!--        android:layout_toEndOf="@id/mtrl_list_item_icon"-->
+<!--        android:maxLines="2"-->
+<!--        android:paddingEnd="16dp"-->
+<!--        android:textAppearance="?attr/textAppearanceBody2"-->
+<!--        tools:text="second text" />-->
+
+<!--    <com.google.android.material.switchmaterial.SwitchMaterial-->
+<!--        android:id="@+id/content_2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/content"-->
+<!--        android:layout_gravity="center_vertical"-->
+<!--        android:layout_toEndOf="@id/mtrl_list_item_icon"-->
+<!--        android:maxLines="2"-->
+<!--        android:paddingEnd="16dp"-->
+<!--        android:textAppearance="?attr/textAppearanceBody2"-->
+<!--        tools:text="switch text" />-->
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/btn1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/content_2"-->
+<!--        android:layout_gravity="center_vertical"-->
+<!--        android:layout_toEndOf="@id/mtrl_list_item_icon"-->
+<!--        android:maxLines="2"-->
+<!--        android:paddingEnd="16dp"-->
+<!--        android:textAppearance="?attr/textAppearanceBody2"-->
+<!--        tools:text="second text" />-->
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/btn2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/btn1"-->
+<!--        android:layout_gravity="center_vertical"-->
+<!--        android:layout_toEndOf="@id/mtrl_list_item_icon"-->
+<!--        android:maxLines="2"-->
+<!--        android:paddingEnd="16dp"-->
+<!--        android:textAppearance="?attr/textAppearanceBody2"-->
+<!--        tools:text="second text" />-->
+
+<!--</RelativeLayout>-->

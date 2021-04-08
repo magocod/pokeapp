@@ -1,22 +1,36 @@
 package com.example.pokeapp.ui.capture
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.pokeapp.R
-import com.example.pokeapp.ui.capture.dummy.DummyContent
+import com.example.pokeapp.network.Pokemon
+import com.example.pokeapp.network.Sprites
+import com.example.pokeapp.ui.PokemonViewModel
+import com.example.pokeapp.ui.PokemonViewModelFactory
 
 /**
  * A fragment representing a list of Items.
  */
 class CapturePokemonFragment : Fragment() {
 
+    private val pokemonViewModel: PokemonViewModel by activityViewModels() { PokemonViewModelFactory() }
+
+    val args: CapturePokemonFragmentArgs by navArgs()
+
     private var columnCount = 1
+
+    private var recyclerView: CapturePokemonRecyclerViewAdapter? = null
+
+    private val newCaptureActivityRequestCode = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,10 +53,43 @@ class CapturePokemonFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = CapturePokemonRecyclerViewAdapter(DummyContent.ITEMS)
+                adapter =
+                    CapturePokemonRecyclerViewAdapter(
+                        mutableListOf(
+                            Pokemon(
+                                1,
+                                "error loading",
+                                sprites = Sprites(
+                                    "",
+                                    "",
+                                    "",
+                                    "",
+                                    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/183.png",
+                                    "",
+                                    "",
+                                    ""
+                                )
+                            )
+                        )
+                    )
             }
+            recyclerView = view.adapter as CapturePokemonRecyclerViewAdapter
         }
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.d("areaD navigation", args.areaId.toString())
+        pokemonViewModel.getAreaDetail(args.areaId)
+
+        pokemonViewModel.pokemons.observe(viewLifecycleOwner,
+            androidx.lifecycle.Observer { pokemons ->
+//                Log.d("pokeVM locations", locations.toString())
+                recyclerView.let {
+                    it!!.updateData(pokemons)
+                }
+            })
     }
 
     companion object {

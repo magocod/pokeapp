@@ -19,12 +19,17 @@
 
     <string name="regions">Regions</string>
     <string name="region_detail">Region {regionName}</string>
+    <string name="location_detail">Location {locationName}</string>
+    <string name="area_detail">Area {areaName}</string>
+    <string name="capture_result">Capture {pokemonName}</string>
 
     <!-- buttons texts -->
     <string name="exit">Exit</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="button">Button</string>
+    <string name="back">Back</string>
+    <string name="team">Team</string>
 
     <!-- left bar items -->
     <string name="menu_home">Home</string>
@@ -45,6 +50,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="example_username">androvirtual@gmail.com</string>
     <string name="example_user_password">123456</string>
+    <string name="debug_login">Debug login</string>
 
     <!-- Preference Titles -->
     <string name="setting">Setting</string>
@@ -156,4 +162,7 @@
     <string name="moves">Moves</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_capture">CaptureActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>

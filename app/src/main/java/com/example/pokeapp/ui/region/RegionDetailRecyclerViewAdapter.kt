@@ -32,7 +32,13 @@ class RegionDetailRecyclerViewAdapter(
         holder.itemView.setOnClickListener() {
             Log.d("RegionDetailRecycler", "position: $position id: ${item.id}")
             val navController = Navigation.findNavController(holder.itemView)
-            navController.navigate(R.id.action_regionDetailFragment_to_locationFragment)
+            val action =
+                RegionDetailFragmentDirections.actionRegionDetailFragmentToLocationFragment(
+                    locationId = item.id,
+                    locationName = item.name
+                )
+//            navController.navigate(R.id.action_regionDetailFragment_to_locationFragment)
+            navController.navigate(action)
         }
     }
 

@@ -37,6 +37,18 @@
         android:textAppearance="?attr/textAppearanceBody2"
         tools:text="second text" />
 
+    <TextView
+        android:id="@+id/third_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/content"
+        android:layout_gravity="center_vertical"
+        android:layout_toEndOf="@id/mtrl_list_item_icon"
+        android:paddingEnd="16dp"
+        android:maxLines="1"
+        android:textAppearance="?attr/textAppearanceBody2"
+        tools:text="third text"/>
+
 </RelativeLayout>
 
 <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
