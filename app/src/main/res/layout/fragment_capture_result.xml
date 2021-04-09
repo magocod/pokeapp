@@ -15,6 +15,7 @@
 
         <!-- Media -->
         <ImageView
+            android:id="@+id/item_image"
             android:layout_width="match_parent"
             android:layout_height="194dp"
             app:srcCompat="@drawable/bannete_sprite"
@@ -74,6 +75,13 @@
                 />
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/team_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/storage"
+                style="?attr/borderlessButtonStyle"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/storage_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/team"

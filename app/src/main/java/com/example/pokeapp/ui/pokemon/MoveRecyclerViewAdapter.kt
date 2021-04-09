@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokeapp.R
+import com.example.pokeapp.network.Move
 import com.example.pokeapp.ui.pokemon.dummy.DummyContent.DummyItem
 
 /**
@@ -13,7 +14,7 @@ import com.example.pokeapp.ui.pokemon.dummy.DummyContent.DummyItem
  * TODO: Replace the implementation with code for your data type.
  */
 class MoveRecyclerViewAdapter(
-    private val values: List<DummyItem>
+    private val values: MutableList<Move>
 ) : RecyclerView.Adapter<MoveRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,7 +27,7 @@ class MoveRecyclerViewAdapter(
         val item = values[position]
 //        val content = "${item.id} ${item.content}"
 //        holder.idView.text = item.id
-        holder.contentView.text = item.content
+        holder.contentView.text = item.name
     }
 
     override fun getItemCount(): Int = values.size
@@ -38,5 +39,12 @@ class MoveRecyclerViewAdapter(
         override fun toString(): String {
             return super.toString() + " '" + contentView.text + "'"
         }
+    }
+
+    fun updateData(items: List<Move>) {
+        values.clear()
+        values.addAll(items)
+        notifyDataSetChanged()
+//        Log.d("recycler update", values.toString())
     }
 }

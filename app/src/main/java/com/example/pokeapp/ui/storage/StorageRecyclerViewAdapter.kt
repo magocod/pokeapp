@@ -13,6 +13,7 @@ import coil.load
 import com.example.pokeapp.R
 import com.example.pokeapp.network.UserPokemon
 import com.example.pokeapp.ui.storage.dummy.DummyContent.DummyItem
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
  * [RecyclerView.Adapter] that can display a [DummyItem].
@@ -45,7 +46,21 @@ class StorageRecyclerViewAdapter(
         holder.itemView.setOnClickListener() {
             Log.d("StorageRecycler", "position: $position id: ${item.id}")
             val navController = Navigation.findNavController(holder.itemView)
-            navController.navigate(R.id.action_nav_storage_to_specieFragment)
+            MaterialAlertDialogBuilder(holder.itemView.context)
+                .setTitle(R.string.temporary_title)
+                .setMessage(R.string.temporary_message)
+                .setCancelable(true)
+                .setNegativeButton(R.string.detail) { _, _ ->
+                    val action = StorageFragmentDirections.actionNavStorageToSpecieFragment(
+                        item.specie.id,
+                        item.nickName
+                    )
+                    navController.navigate(action)
+                }
+                .setPositiveButton(R.string.update) { _, _ ->
+                    // pass
+                }
+                .show()
         }
     }
 

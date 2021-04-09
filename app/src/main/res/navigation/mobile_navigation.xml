@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/nav_storage">
 
     <fragment
         android:id="@+id/nav_home"
@@ -68,7 +68,8 @@
         android:id="@+id/capturePokemonFragment"
         android:name="com.example.pokeapp.ui.capture.CapturePokemonFragment"
         android:label="@string/area_detail"
-        tools:layout="@layout/fragment_capture_pokemon_list" >
+        tools:layout="@layout/fragment_capture_pokemon_list"
+        app:startDestination="@id/action_capturePokemonFragment_to_captureResultFragment">
         <argument
             android:name="areaId"
             app:argType="integer"
@@ -138,8 +139,17 @@
     <fragment
         android:id="@+id/specieFragment"
         android:name="com.example.pokeapp.ui.pokemon.SpecieFragment"
-        android:label="specie_fragment"
-        tools:layout="@layout/specie_fragment" />
+        android:label="@string/pokemon_specie"
+        tools:layout="@layout/specie_fragment" >
+        <argument
+            android:name="specieId"
+            app:argType="integer"
+            android:defaultValue="1" />
+        <argument
+            android:name="pokemonName"
+            app:argType="string"
+            android:defaultValue="default" />
+    </fragment>
     <fragment
         android:id="@+id/captureResultFragment"
         android:name="com.example.pokeapp.ui.capture.CaptureResultFragment"
@@ -164,5 +174,8 @@
         <action
             android:id="@+id/action_captureResultFragment_to_nav_team"
             app:destination="@id/nav_team" />
+        <action
+            android:id="@+id/action_captureResultFragment_to_nav_storage"
+            app:destination="@id/nav_storage" />
     </fragment>
 </navigation>

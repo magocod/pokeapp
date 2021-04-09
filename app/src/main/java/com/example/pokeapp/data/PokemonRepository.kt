@@ -1,6 +1,8 @@
 package com.example.pokeapp.data
 
 import android.util.Log
+import com.example.pokeapp.R
+import com.example.pokeapp.data.model.PokemonType
 import com.example.pokeapp.network.*
 import kotlinx.coroutines.withTimeout
 import retrofit2.HttpException
@@ -147,6 +149,111 @@ class PokemonRepository {
             Log.d("PokeRepo storage", e.toString());
             Result.Error(IOException("Error loading storage", e))
         }
+    }
+
+    fun getTypeIcon(typeName: String): Int {
+        val pokemonType = getPokemonTypes().find {
+            it.name == typeName
+        }
+        if (pokemonType != null) {
+            return pokemonType.drawable
+        }
+        return R.drawable.ic_broken_image
+    }
+
+    private fun getPokemonTypes(): List<PokemonType> {
+        return listOf(
+            PokemonType(
+                1,
+                "steel",
+                R.drawable.type_steel
+            ),
+            PokemonType(
+                2,
+                "fire",
+                R.drawable.type_fire
+            ),
+            PokemonType(
+                3,
+                "fighting",
+                R.drawable.type_fighting
+            ),
+            PokemonType(
+                4,
+                "fairy",
+                R.drawable.type_fairy
+            ),
+            PokemonType(
+                5,
+                "ice",
+                R.drawable.type_ice
+            ),
+            PokemonType(
+                6,
+                "grass",
+                R.drawable.type_grass
+            ),
+            PokemonType(
+                7,
+                "bug",
+                R.drawable.type_bug
+            ),
+            PokemonType(
+                8,
+                "normal",
+                R.drawable.type_normal
+            ),
+            PokemonType(
+                9,
+                "electric",
+                R.drawable.type_electric
+            ),
+            PokemonType(
+                10,
+                "ground",
+                R.drawable.type_ground
+            ),
+            PokemonType(
+                11,
+                "psychic",
+                R.drawable.type_psychic
+            ),
+            PokemonType(
+                12,
+                "rock",
+                R.drawable.type_rock
+            ),
+            PokemonType(
+                13,
+                "fire",
+                R.drawable.type_fire
+            ),
+            PokemonType(
+                14,
+                "water",
+                R.drawable.type_water
+            ),
+            PokemonType(
+                15,
+                "flying",
+                R.drawable.type_flying
+            ),
+            PokemonType(
+                16,
+                "poison",
+                R.drawable.type_poison
+            ),
+            PokemonType(
+                17,
+                "dragon",
+                R.drawable.type_dragon
+            ),
+            PokemonType(
+                18,
+                "dark",
+                R.drawable.type_dark
+            )
+        )
     }
 
 }

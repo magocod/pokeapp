@@ -24,27 +24,30 @@
                 android:padding="16dp">
 
                 <TextView
+                    android:id="@+id/status_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@string/poke_status"
+                    tools:text="@string/poke_status"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary"
                     />
                 <TextView
+                    android:id="@+id/status_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@string/poke_status"
+                    tools:text="@string/poke_status"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary"
                     />
 
                 <TextView
+                    android:id="@+id/status_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@string/poke_status"
+                    tools:text="@string/poke_status"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary"
                     />

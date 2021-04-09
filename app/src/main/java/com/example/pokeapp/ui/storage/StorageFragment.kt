@@ -1,6 +1,8 @@
 package com.example.pokeapp.ui.storage
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +16,7 @@ import com.example.pokeapp.ui.UserPokemonViewModel
 import com.example.pokeapp.ui.UserPokemonViewModelFactory
 import com.example.pokeapp.ui.login.LoginViewModel
 import com.example.pokeapp.ui.login.LoginViewModelFactory
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
  * A fragment representing a list of Items.
@@ -27,13 +30,13 @@ class StorageFragment : Fragment() {
 
     private var recyclerView: StorageRecyclerViewAdapter? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//
+//        arguments?.let {
+//            columnCount = it.getInt(ARG_COLUMN_COUNT)
+//        }
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,30 +55,40 @@ class StorageFragment : Fragment() {
             }
             recyclerView = view.adapter as StorageRecyclerViewAdapter
         }
+
         return view
+//        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+//        binding?.apply {
+//            // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
+//            lifecycleOwner = viewLifecycleOwner
+//
+//            viewModel = userPokemonViewModel
+//            storageFragment = this@StorageFragment
+//        }
 
         val token = loginViewModel.getToken()
         if (token != null) {
             userPokemonViewModel.getPokemonStorage(token)
         }
 
-//        loginViewModel.login("u", "p")
-//        loginViewModel.isLoggedIn.observe(viewLifecycleOwner,
-//            androidx.lifecycle.Observer { isLoggedIn ->
-//                Log.d("captured isLoggedIn", isLoggedIn.toString())
-//                if (isLoggedIn) {
-//                    val tk = loginViewModel.getToken()
-//                    if (tk != null) {
-//                        userPokemonViewModel.getPokemonStorage(tk)
-//                    }
-//                } else {
-//                    // pass
-//                }
-//            })
+        loginViewModel.login("u", "p")
+        loginViewModel.isLoggedIn.observe(viewLifecycleOwner,
+            androidx.lifecycle.Observer { isLoggedIn ->
+                Log.d("captured isLoggedIn", isLoggedIn.toString())
+                if (isLoggedIn) {
+                    val tk = loginViewModel.getToken()
+                    if (tk != null) {
+                        userPokemonViewModel.getPokemonStorage(tk)
+                    }
+                } else {
+                    // pass
+                }
+            })
 
         userPokemonViewModel.storage.observe(viewLifecycleOwner,
             androidx.lifecycle.Observer { storage ->
@@ -85,6 +98,20 @@ class StorageFragment : Fragment() {
                 }
             })
 
+    }
+
+    fun showDialog(context: Context) {
+        MaterialAlertDialogBuilder(context)
+            .setTitle(R.string.temporary_title)
+            .setMessage(R.string.temporary_message)
+            .setCancelable(true)
+            .setNegativeButton(R.string.cancel) { _, _ ->
+                // pass
+            }
+            .setPositiveButton(R.string.confirm) { _, _ ->
+                // pass
+            }
+            .show()
     }
 
     companion object {

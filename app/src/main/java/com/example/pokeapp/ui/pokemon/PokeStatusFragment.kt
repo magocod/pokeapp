@@ -1,11 +1,17 @@
 package com.example.pokeapp.ui.pokemon
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.example.pokeapp.R
+import com.example.pokeapp.data.Result
+import com.example.pokeapp.ui.PokemonViewModel
+import com.example.pokeapp.ui.PokemonViewModelFactory
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +28,8 @@ class PokeStatusFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private val pokemonViewModel: PokemonViewModel by activityViewModels() { PokemonViewModelFactory() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -36,6 +44,45 @@ class PokeStatusFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_poke_status, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setStatusPokemon(
+            view,
+            "---",
+            "---",
+            "---"
+        )
+
+        pokemonViewModel.specie.observe(viewLifecycleOwner,
+            androidx.lifecycle.Observer { result ->
+                Log.d("captured poke s", result.toString())
+                if (result is Result.Success) {
+                    if (result.data.stats.size > 3) {
+                        setStatusPokemon(
+                            view,
+                            "${result.data.stats[0].name}: ${result.data.stats[0].value}",
+                            "${result.data.stats[1].name}: ${result.data.stats[1].value}",
+                            "${result.data.stats[2].name}: ${result.data.stats[2].value}",
+                        )
+                    } else {
+                        setStatusPokemon(
+                            view,
+                            "---",
+                            "---",
+                            "---"
+                        )
+                    }
+                }
+            })
+    }
+
+    private fun setStatusPokemon(view: View, statusA: String, statusB: String, statusC: String) {
+        view.findViewById<TextView>(R.id.status_1).text = statusA
+        view.findViewById<TextView>(R.id.status_2).text = statusB
+        view.findViewById<TextView>(R.id.status_3).text = statusC
     }
 
     companion object {

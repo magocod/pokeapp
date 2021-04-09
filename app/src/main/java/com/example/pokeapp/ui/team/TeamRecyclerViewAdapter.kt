@@ -45,7 +45,12 @@ class TeamRecyclerViewAdapter(
         holder.itemView.setOnClickListener() {
             Log.d("TeamRecycler", "position: $position id: ${item.id}")
             val navController = Navigation.findNavController(holder.itemView)
-            navController.navigate(R.id.action_nav_team_to_specieFragment)
+            val action = TeamFragmentDirections.actionNavTeamToSpecieFragment(
+                item.specie.id,
+                item.nickName
+            )
+//            navController.navigate(R.id.action_nav_team_to_specieFragment)
+            navController.navigate(action)
         }
     }
 

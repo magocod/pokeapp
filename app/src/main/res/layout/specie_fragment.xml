@@ -13,7 +13,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/temporary_title"
+        tools:text="@string/temporary_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,19 +49,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/type_1"
         android:layout_width="73dp"
         android:layout_height="81dp"
         android:layout_marginStart="42dp"
         android:layout_marginTop="35dp"
         android:layout_marginBottom="43dp"
-        android:src="@drawable/type_plant_100x100"
+        android:src="@drawable/type_grass"
         app:layout_constraintBottom_toTopOf="@+id/fragment"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/pokemon_name" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/type_2"
         android:layout_width="73dp"
         android:layout_height="81dp"
         android:layout_marginStart="10dp"
@@ -71,21 +71,18 @@
         android:src="@drawable/type_ground_100x100"
         app:layout_constraintBottom_toTopOf="@+id/fragment"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/type_1"
         app:layout_constraintTop_toBottomOf="@+id/pokemon_name" />
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment2"
         android:name="com.example.pokeapp.ui.pokemon.PokeStatusFragment"
-        android:layout_width="169dp"
-        android:layout_height="159dp"
+        android:layout_width="338dp"
+        android:layout_height="155dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="33dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment"
         app:layout_constraintVertical_bias="0.327"

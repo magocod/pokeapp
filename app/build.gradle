@@ -9,10 +9,6 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
-    buildFeatures {
-        dataBinding true
-    }
-
     defaultConfig {
         applicationId "com.example.pokeapp"
         minSdkVersion 22
@@ -21,6 +17,10 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        dataBinding true
     }
 
     buildTypes {
@@ -51,6 +51,7 @@ dependencies {
 
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.1"
 
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'

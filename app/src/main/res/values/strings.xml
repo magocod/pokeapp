@@ -22,6 +22,7 @@
     <string name="location_detail">Location {locationName}</string>
     <string name="area_detail">Area {areaName}</string>
     <string name="capture_result">Capture {pokemonName}</string>
+    <string name="pokemon_specie">{pokemonName}</string>
 
     <!-- buttons texts -->
     <string name="exit">Exit</string>
@@ -30,6 +31,9 @@
     <string name="button">Button</string>
     <string name="back">Back</string>
     <string name="team">Team</string>
+    <string name="storage">Storage</string>
+    <string name="update">Update</string>
+    <string name="detail">Detail</string>
 
     <!-- left bar items -->
     <string name="menu_home">Home</string>

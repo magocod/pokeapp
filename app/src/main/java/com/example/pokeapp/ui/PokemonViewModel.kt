@@ -1,9 +1,6 @@
 package com.example.pokeapp.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.pokeapp.data.PokemonRepository
 import com.example.pokeapp.data.Result
 import com.example.pokeapp.network.*
@@ -25,6 +22,19 @@ class PokemonViewModel(private val pokemonRepository: PokemonRepository) : ViewM
 
     private val _capturedPokemon = MutableLiveData<Result<CapturedPokemon>>()
     val capturedPokemon: LiveData<Result<CapturedPokemon>> = _capturedPokemon
+
+    private val _specie = MutableLiveData<Result<Specie>>()
+    val specie: LiveData<Result<Specie>> = _specie
+
+    private val _specieDetail = MutableLiveData<Specie>()
+    private val specieDetail: LiveData<Specie> = _specieDetail
+
+    val specieMoves = Transformations.map(specieDetail) { specie ->
+        specie.moves.mapIndexed { index, value ->
+            Move(index, value)
+        }
+    }
+
 
     init {
         _regions.value = listOf()
@@ -82,5 +92,19 @@ class PokemonViewModel(private val pokemonRepository: PokemonRepository) : ViewM
             val result = pokemonRepository.pokemonCatch(token, pokemonCatch)
             _capturedPokemon.value = result
         }
+    }
+
+    fun getSpecie(specieId: Int) {
+        viewModelScope.launch {
+            val result = pokemonRepository.getSpecie(specieId)
+            _specie.value = result
+            if (result is Result.Success) {
+                _specieDetail.value = result.data
+            }
+        }
+    }
+
+    fun getTypeIcon(typeName: String): Int {
+        return pokemonRepository.getTypeIcon(typeName)
     }
 }

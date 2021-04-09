@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import coil.load
 import com.example.pokeapp.R
 import com.example.pokeapp.data.Result
 import com.example.pokeapp.network.CapturedPokemon
@@ -69,6 +72,9 @@ class CaptureResultFragment : Fragment() {
 //            pokemonViewModel.pokemonCatch(it!!, pokemonCatch)
 //        }
 
+        setCapturedPokemon(view, null)
+        setImgPokemon(view, null)
+
         view.findViewById<Button>(R.id.confirm_btn).setOnClickListener() {
             val token = loginViewModel.getToken()
             if (token != null) {
@@ -78,6 +84,10 @@ class CaptureResultFragment : Fragment() {
 
         view.findViewById<Button>(R.id.team_btn).setOnClickListener() {
             findNavController().navigate(R.id.action_captureResultFragment_to_nav_team)
+        }
+
+        view.findViewById<Button>(R.id.storage_btn).setOnClickListener() {
+            findNavController().navigate(R.id.action_captureResultFragment_to_nav_storage)
         }
 
         view.findViewById<Button>(R.id.back_btn).setOnClickListener() {
@@ -100,18 +110,47 @@ class CaptureResultFragment : Fragment() {
 //            })
 
         pokemonViewModel.capturedPokemon.observe(viewLifecycleOwner,
-            androidx.lifecycle.Observer {
-                Log.d("captured poke", it.toString())
-                if (it is Result.Success) {
-                    setCapturedPokemon(view, it.data)
+            androidx.lifecycle.Observer { result ->
+                Log.d("captured poke", result.toString())
+                if (result is Result.Success) {
+                    setCapturedPokemon(view, result.data)
+                    setImgPokemon(view, null)
+                    pokemonViewModel.getSpecie(result.data.specie)
+                }
+            })
+
+        pokemonViewModel.specie.observe(viewLifecycleOwner,
+            androidx.lifecycle.Observer { result ->
+                Log.d("captured poke s", result.toString())
+                if (result is Result.Success) {
+                    setImgPokemon(view, result.data.sprites.frontDefault)
                 }
             })
     }
 
-    private fun setCapturedPokemon(view: View, capturedPokemon: CapturedPokemon) {
-        view.findViewById<TextView>(R.id.item_number).text = capturedPokemon.id.toString()
-        view.findViewById<TextView>(R.id.content).text = capturedPokemon.nickName
-        view.findViewById<SwitchMaterial>(R.id.content_switch).isChecked = capturedPokemon.isPartyMember
+    private fun setCapturedPokemon(view: View, capturedPokemon: CapturedPokemon? = null) {
+        if (capturedPokemon != null) {
+            view.findViewById<TextView>(R.id.item_number).text = capturedPokemon.id.toString()
+            view.findViewById<TextView>(R.id.content).text = capturedPokemon.nickName
+            view.findViewById<SwitchMaterial>(R.id.content_switch).isChecked =
+                capturedPokemon.isPartyMember
+        } else {
+            view.findViewById<TextView>(R.id.item_number).text = ""
+            view.findViewById<TextView>(R.id.content).text = ""
+            view.findViewById<SwitchMaterial>(R.id.content_switch).isChecked = false
+        }
+    }
+
+    private fun setImgPokemon(view: View, imgSrc: String? = null) {
+        if (imgSrc != null) {
+            val imgUri = imgSrc.toUri().buildUpon().scheme("https").build()
+            view.findViewById<ImageView>(R.id.item_image).load(imgUri) {
+                placeholder(R.drawable.loading_animation)
+                error(R.drawable.ic_broken_image)
+            }
+        } else {
+            view.findViewById<ImageView>(R.id.item_image).setImageResource(R.drawable.ic_broken_image)
+        }
     }
 
     companion object {

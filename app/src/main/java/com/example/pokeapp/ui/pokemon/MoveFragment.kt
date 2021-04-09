@@ -5,18 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokeapp.R
-import com.example.pokeapp.ui.pokemon.dummy.DummyContent
+import com.example.pokeapp.ui.PokemonViewModel
+import com.example.pokeapp.ui.PokemonViewModelFactory
 
 /**
  * A fragment representing a list of Items.
  */
 class MoveFragment : Fragment() {
 
-    private var columnCount = 3
+    private var columnCount = 2
+
+    private val pokemonViewModel: PokemonViewModel by activityViewModels() { PokemonViewModelFactory() }
+
+    private var recyclerView: MoveRecyclerViewAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,10 +45,23 @@ class MoveFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MoveRecyclerViewAdapter(DummyContent.ITEMS)
+                adapter = MoveRecyclerViewAdapter(mutableListOf())
             }
+            recyclerView = view.adapter as MoveRecyclerViewAdapter
         }
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        pokemonViewModel.specieMoves.observe(viewLifecycleOwner,
+            androidx.lifecycle.Observer { specieMoves ->
+                recyclerView.let {
+                    it!!.updateData(specieMoves)
+                }
+            })
+
     }
 
     companion object {

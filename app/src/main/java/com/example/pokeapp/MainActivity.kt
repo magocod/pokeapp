@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         _menu = menu
-        visibleOptionDebugLogin(menu, false)
+        visibleOptionDebugLogin(menu, true)
         visibleOptionMenu(menu, false)
         return true
     }
