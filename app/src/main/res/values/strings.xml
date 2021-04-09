@@ -14,8 +14,11 @@
     <string name="unhandled_error">Unhandled error</string>
 
     <string name="name">Name</string>
+    <string name="nick_name">NickName</string>
+    <string name="update_nick_name">Update nickname</string>
     <string name="poke_status">Status: 000</string>
     <string name="is_party_member">Is party member</string>
+    <string name="release_pokemon">Release pokemon</string>
 
     <string name="regions">Regions</string>
     <string name="region_detail">Region {regionName}</string>
@@ -34,6 +37,7 @@
     <string name="storage">Storage</string>
     <string name="update">Update</string>
     <string name="detail">Detail</string>
+    <string name="release">Release</string>
 
     <!-- left bar items -->
     <string name="menu_home">Home</string>

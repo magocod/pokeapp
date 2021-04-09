@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_storage">
+    app:startDestination="@id/updatePokemonFragment">
 
     <fragment
         android:id="@+id/nav_home"
@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_nav_team_to_specieFragment"
             app:destination="@id/specieFragment" />
+        <action
+            android:id="@+id/action_nav_team_to_updatePokemonFragment"
+            app:destination="@id/updatePokemonFragment" />
     </fragment>
     <fragment
         android:id="@+id/captureFullscreenFragment"
@@ -135,6 +138,9 @@
         <action
             android:id="@+id/action_nav_storage_to_specieFragment"
             app:destination="@id/specieFragment" />
+        <action
+            android:id="@+id/action_nav_storage_to_updatePokemonFragment"
+            app:destination="@id/updatePokemonFragment" />
     </fragment>
     <fragment
         android:id="@+id/specieFragment"
@@ -177,5 +183,15 @@
         <action
             android:id="@+id/action_captureResultFragment_to_nav_storage"
             app:destination="@id/nav_storage" />
+    </fragment>
+    <fragment
+        android:id="@+id/updatePokemonFragment"
+        android:name="com.example.pokeapp.ui.pokemon.UpdatePokemonFragment"
+        android:label="fragment_update_pokemon"
+        tools:layout="@layout/fragment_update_pokemon" >
+        <argument
+            android:name="UserPokemonId"
+            app:argType="integer"
+            android:defaultValue="1" />
     </fragment>
 </navigation>
