@@ -84,21 +84,20 @@ class CaptureResultFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        val debugLoginButton = view.findViewById<Button>(R.id.debug_login)
+//        val debugLoginButton = view.findViewById<Button>(R.id.debug_login)
+//        debugLoginButton.setOnClickListener() {
+//            loginViewModel.login("u", "p")
+//        }
 
-        debugLoginButton.setOnClickListener() {
-            loginViewModel.login("u", "p")
-        }
-
-        loginViewModel.isLoggedIn.observe(viewLifecycleOwner,
-            androidx.lifecycle.Observer { isLoggedIn ->
-                Log.d("captured isLoggedIn", isLoggedIn.toString())
-                if (isLoggedIn) {
-                    debugLoginButton.visibility = View.GONE
-                } else {
-                    debugLoginButton.visibility = View.VISIBLE
-                }
-            })
+//        loginViewModel.isLoggedIn.observe(viewLifecycleOwner,
+//            androidx.lifecycle.Observer { isLoggedIn ->
+//                Log.d("captured isLoggedIn", isLoggedIn.toString())
+//                if (isLoggedIn) {
+//                    debugLoginButton.visibility = View.GONE
+//                } else {
+//                    debugLoginButton.visibility = View.VISIBLE
+//                }
+//            })
 
         pokemonViewModel.capturedPokemon.observe(viewLifecycleOwner,
             androidx.lifecycle.Observer {

@@ -86,13 +86,13 @@
                 android:text="@string/back"
                 style="?attr/borderlessButtonStyle"
                 />
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/debug_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/debug_login"
-                style="?attr/borderlessButtonStyle"
-                />
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/debug_login"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/debug_login"-->
+<!--                style="?attr/borderlessButtonStyle"-->
+<!--                />-->
         </LinearLayout>
 
     </LinearLayout>

@@ -13,4 +13,10 @@
         android:icon="@drawable/ic_baseline_settings_24"
         android:title="@string/action_logout"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_debug_login"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_baseline_developer_mode_24"
+        android:title="@string/debug_login"
+        app:showAsAction="never" />
 </menu>

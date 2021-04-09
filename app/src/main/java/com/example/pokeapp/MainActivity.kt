@@ -74,11 +74,13 @@ class MainActivity : AppCompatActivity() {
 //                    fab.visibility = View.VISIBLE
                     if (this::_menu.isInitialized) {
                         visibleOptionMenu(_menu, true)
+                        visibleOptionDebugLogin(_menu, false)
                     }
                 } else {
 //                    fab.visibility = View.GONE
                     if (this::_menu.isInitialized) {
                         visibleOptionMenu(_menu, false)
+                        visibleOptionDebugLogin(_menu, true)
                     }
                 }
             })
@@ -89,10 +91,15 @@ class MainActivity : AppCompatActivity() {
         menu.findItem(R.id.action_settings).isVisible = isVisible
     }
 
+    private fun visibleOptionDebugLogin(menu: Menu, isVisible: Boolean) {
+        menu.findItem(R.id.action_debug_login).isVisible = isVisible
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         _menu = menu
+        visibleOptionDebugLogin(menu, false)
         visibleOptionMenu(menu, false)
         return true
     }
@@ -110,6 +117,10 @@ class MainActivity : AppCompatActivity() {
 //                System.exit(0);
 //                finishAffinity()
                 showLogoutDialog()
+                true
+            }
+            R.id.action_debug_login -> {
+                loginViewModel.login("u", "p")
                 true
             }
             else -> super.onOptionsItemSelected(item)

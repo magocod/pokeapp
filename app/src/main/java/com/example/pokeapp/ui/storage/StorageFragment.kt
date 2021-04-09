@@ -5,18 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokeapp.R
-import com.example.pokeapp.ui.storage.dummy.DummyContent
+import com.example.pokeapp.ui.UserPokemonViewModel
+import com.example.pokeapp.ui.UserPokemonViewModelFactory
+import com.example.pokeapp.ui.login.LoginViewModel
+import com.example.pokeapp.ui.login.LoginViewModelFactory
 
 /**
  * A fragment representing a list of Items.
  */
 class StorageFragment : Fragment() {
 
+    private val loginViewModel: LoginViewModel by activityViewModels { LoginViewModelFactory() }
+    private val userPokemonViewModel: UserPokemonViewModel by activityViewModels { UserPokemonViewModelFactory() }
+
     private var columnCount = 2
+
+    private var recyclerView: StorageRecyclerViewAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,10 +48,43 @@ class StorageFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = StorageRecyclerViewAdapter(DummyContent.ITEMS)
+                adapter = StorageRecyclerViewAdapter(mutableListOf())
             }
+            recyclerView = view.adapter as StorageRecyclerViewAdapter
         }
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val token = loginViewModel.getToken()
+        if (token != null) {
+            userPokemonViewModel.getPokemonStorage(token)
+        }
+
+//        loginViewModel.login("u", "p")
+//        loginViewModel.isLoggedIn.observe(viewLifecycleOwner,
+//            androidx.lifecycle.Observer { isLoggedIn ->
+//                Log.d("captured isLoggedIn", isLoggedIn.toString())
+//                if (isLoggedIn) {
+//                    val tk = loginViewModel.getToken()
+//                    if (tk != null) {
+//                        userPokemonViewModel.getPokemonStorage(tk)
+//                    }
+//                } else {
+//                    // pass
+//                }
+//            })
+
+        userPokemonViewModel.storage.observe(viewLifecycleOwner,
+            androidx.lifecycle.Observer { storage ->
+//                Log.d("pokeVM locations", locations.toString())
+                recyclerView.let {
+                    it!!.updateData(storage)
+                }
+            })
+
     }
 
     companion object {

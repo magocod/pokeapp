@@ -56,11 +56,20 @@ interface PokemonApiService {
     @GET("areas/{id}")
     suspend fun getAreaDetail(@Path("id") id: Int): Response<AreaDetail>
 
+    @GET("pokemons/{id}")
+    suspend fun getSpecie(@Path("id") id: Int): Response<Specie>
+
     @POST("pokemons/own/")
     suspend fun pokemonCatch(
         @Header("Authorization") token: String,
         @Body pokemonCatch: PokemonCatch
     ): Response<CapturedPokemon>
+
+    @GET("pokemons/own/party/")
+    suspend fun getPokemonParty(@Header("Authorization") token: String): Response<List<UserPokemon>>
+
+    @GET("pokemons/own/")
+    suspend fun getPokemonStorage(@Header("Authorization") token: String): Response<List<UserPokemon>>
 }
 
 /**

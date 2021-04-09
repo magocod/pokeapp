@@ -79,6 +79,24 @@ class PokemonRepository {
         }
     }
 
+    suspend fun getSpecie(specieId: Int): Result<Specie> {
+        return try {
+            val response = withTimeout(5_000) {
+                PokemonApi.retrofitService.getSpecie(specieId)
+            }
+
+            if (!response.isSuccessful) {
+                throw HttpException(response) // or handle - whatever
+            }
+//            Log.d("PokeRepo area", response.body().toString());
+
+            Result.Success(response.body()!!)
+        } catch (e: Throwable) {
+            Log.d("PokeRepo specie", e.toString());
+            Result.Error(IOException("Error loading specie", e))
+        }
+    }
+
     suspend fun pokemonCatch(token: String, pokemonCatch: PokemonCatch): Result<CapturedPokemon> {
         return try {
             val response = withTimeout(5_000) {
@@ -96,4 +114,39 @@ class PokemonRepository {
             Result.Error(IOException("Error catch", e))
         }
     }
+
+    suspend fun getPokemonParty(token: String): Result<List<UserPokemon>> {
+        return try {
+            val response = withTimeout(5_000) {
+                PokemonApi.retrofitService.getPokemonParty(makeAuthHeader(token))
+            }
+
+            if (!response.isSuccessful) {
+                throw HttpException(response) // or handle - whatever
+            }
+
+            Result.Success(response.body()!!)
+        } catch (e: Throwable) {
+            Log.d("PokeRepo party", e.toString());
+            Result.Error(IOException("Error loading party", e))
+        }
+    }
+
+    suspend fun getPokemonStorage(token: String): Result<List<UserPokemon>> {
+        return try {
+            val response = withTimeout(5_000) {
+                PokemonApi.retrofitService.getPokemonStorage(makeAuthHeader(token))
+            }
+
+            if (!response.isSuccessful) {
+                throw HttpException(response) // or handle - whatever
+            }
+
+            Result.Success(response.body()!!)
+        } catch (e: Throwable) {
+            Log.d("PokeRepo storage", e.toString());
+            Result.Error(IOException("Error loading storage", e))
+        }
+    }
+
 }
