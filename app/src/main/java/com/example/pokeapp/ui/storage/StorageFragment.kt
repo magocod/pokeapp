@@ -2,7 +2,6 @@ package com.example.pokeapp.ui.storage
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,19 +75,19 @@ class StorageFragment : Fragment() {
             userPokemonViewModel.getPokemonStorage(token)
         }
 
-        loginViewModel.login("u", "p")
-        loginViewModel.isLoggedIn.observe(viewLifecycleOwner,
-            androidx.lifecycle.Observer { isLoggedIn ->
-                Log.d("captured isLoggedIn", isLoggedIn.toString())
-                if (isLoggedIn) {
-                    val tk = loginViewModel.getToken()
-                    if (tk != null) {
-                        userPokemonViewModel.getPokemonStorage(tk)
-                    }
-                } else {
-                    // pass
-                }
-            })
+//        loginViewModel.login("u", "p")
+//        loginViewModel.isLoggedIn.observe(viewLifecycleOwner,
+//            androidx.lifecycle.Observer { isLoggedIn ->
+//                Log.d("captured isLoggedIn", isLoggedIn.toString())
+//                if (isLoggedIn) {
+//                    val tk = loginViewModel.getToken()
+//                    if (tk != null) {
+//                        userPokemonViewModel.getPokemonStorage(tk)
+//                    }
+//                } else {
+//                    // pass
+//                }
+//            })
 
         userPokemonViewModel.storage.observe(viewLifecycleOwner,
             androidx.lifecycle.Observer { storage ->

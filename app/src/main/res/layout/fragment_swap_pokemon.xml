@@ -13,14 +13,28 @@
         android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/update_nick_name"
+        android:text="@string/enter_the_team"
         />
 
     <EditText
-        android:id="@+id/input_nickname"
+        android:id="@+id/input_auto_storage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/nick_name"
+        android:hint="@string/pokemon"
+        android:inputType="text"/>
+
+    <TextView
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/leaves_the_team"
+        />
+
+    <EditText
+        android:id="@+id/input_auto_team"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/pokemon"
         android:inputType="text"/>
 
     <Button
@@ -28,19 +42,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/confirm" />
-
-    <TextView
-        android:layout_margin="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/release_pokemon"
-        />
-
-    <Button
-        android:id="@+id/btn_release"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/release" />
 
     <ProgressBar
         android:id="@+id/spinner"

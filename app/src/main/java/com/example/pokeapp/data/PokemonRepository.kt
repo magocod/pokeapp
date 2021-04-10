@@ -151,6 +151,66 @@ class PokemonRepository {
         }
     }
 
+    suspend fun pokemonRename(
+        id: Int,
+        token: String,
+        pokemonRename: PokemonRename
+    ): Result<CapturedPokemon> {
+        return try {
+            val response = withTimeout(5_000) {
+                PokemonApi.retrofitService.pokemonRename(id, makeAuthHeader(token), pokemonRename)
+            }
+
+            if (!response.isSuccessful) {
+                throw HttpException(response) // or handle - whatever
+            }
+
+            Result.Success(response.body()!!)
+        } catch (e: Throwable) {
+            if (e is HttpException) {
+                Log.d("PokeRepo http e", e.response()!!.code().toString());
+                Log.d("PokeRepo http e", e.response()!!.body().toString());
+                Log.d("PokeRepo http e", e.response()!!.errorBody().toString());
+            }
+            Log.d("PokeRepo rename", e.toString());
+            Result.Error(IOException(e.toString(), e))
+        }
+    }
+
+    suspend fun pokemonRelease(id: Int, token: String): Result<String> {
+        return try {
+            val response = withTimeout(5_000) {
+                PokemonApi.retrofitService.pokemonRelease(id, makeAuthHeader(token))
+            }
+
+            if (!response.isSuccessful) {
+                throw HttpException(response) // or handle - whatever
+            }
+
+            Result.Success("void")
+        } catch (e: Throwable) {
+            Log.d("PokeRepo release", e.toString());
+            Result.Error(IOException(e.toString(), e))
+        }
+    }
+
+    suspend fun swapPartyMember(token: String, swapPartyMember: SwapPartyMember): Result<List<UserPokemon>> {
+        return try {
+            val response = withTimeout(5_000) {
+                PokemonApi.retrofitService.swapPartyMember(makeAuthHeader(token), swapPartyMember)
+            }
+
+            if (!response.isSuccessful) {
+                throw HttpException(response) // or handle - whatever
+            }
+
+            Result.Success(response.body()!!)
+        } catch (e: Throwable) {
+            Log.d("PokeRepo swap", e.toString());
+            Result.Error(IOException("Error swap", e))
+        }
+    }
+
     fun getTypeIcon(typeName: String): Int {
         val pokemonType = getPokemonTypes().find {
             it.name == typeName

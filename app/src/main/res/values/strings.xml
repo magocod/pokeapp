@@ -26,6 +26,10 @@
     <string name="area_detail">Area {areaName}</string>
     <string name="capture_result">Capture {pokemonName}</string>
     <string name="pokemon_specie">{pokemonName}</string>
+    <string name="update_pokemon">Update pokemon</string>
+    <string name="enter_the_team">Enter the team</string>
+    <string name="leaves_the_team">Leaves the team</string>
+    <string name="pokemon">pokemon</string>
 
     <!-- buttons texts -->
     <string name="exit">Exit</string>
@@ -38,6 +42,7 @@
     <string name="update">Update</string>
     <string name="detail">Detail</string>
     <string name="release">Release</string>
+    <string name="ok">Ok</string>
 
     <!-- left bar items -->
     <string name="menu_home">Home</string>
@@ -45,6 +50,7 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_team">Team</string>
     <string name="menu_storage">Storage</string>
+    <string name="menu_swap">Swap</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

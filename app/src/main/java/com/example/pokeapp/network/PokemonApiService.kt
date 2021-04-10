@@ -70,6 +70,25 @@ interface PokemonApiService {
 
     @GET("pokemons/own/")
     suspend fun getPokemonStorage(@Header("Authorization") token: String): Response<List<UserPokemon>>
+
+    @PUT("pokemons/own/{id}/")
+    suspend fun pokemonRename(
+        @Path("id") id: Int,
+        @Header("Authorization") token: String,
+        @Body pokemonRename: PokemonRename
+    ): Response<CapturedPokemon>
+
+    @DELETE("pokemons/own/{id}/")
+    suspend fun pokemonRelease(
+        @Path("id") id: Int,
+        @Header("Authorization") token: String,
+    ): Response<Void>
+
+    @POST("pokemons/own/swap/")
+    suspend fun swapPartyMember(
+        @Header("Authorization") token: String,
+        @Body pokemonCatch: SwapPartyMember
+    ): Response<List<UserPokemon>>
 }
 
 /**

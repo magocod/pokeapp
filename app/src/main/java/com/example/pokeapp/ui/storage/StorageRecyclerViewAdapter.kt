@@ -58,7 +58,11 @@ class StorageRecyclerViewAdapter(
                     navController.navigate(action)
                 }
                 .setPositiveButton(R.string.update) { _, _ ->
-                    // pass
+                    val action = StorageFragmentDirections.actionNavStorageToUpdatePokemonFragment(
+                        item.id,
+                        item.nickName
+                    )
+                    navController.navigate(action)
                 }
                 .show()
         }

@@ -24,5 +24,9 @@
             android:id="@+id/nav_storage"
             android:icon="@drawable/ic_baseline_storage_24"
             android:title="@string/menu_storage" />
+        <item
+            android:id="@+id/nav_swap"
+            android:icon="@drawable/ic_baseline_swap_horiz_24"
+            android:title="@string/menu_swap" />
     </group>
 </menu>

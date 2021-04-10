@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/updatePokemonFragment">
+    app:startDestination="@id/nav_swap">
 
     <fragment
         android:id="@+id/nav_home"
@@ -187,11 +187,20 @@
     <fragment
         android:id="@+id/updatePokemonFragment"
         android:name="com.example.pokeapp.ui.pokemon.UpdatePokemonFragment"
-        android:label="fragment_update_pokemon"
+        android:label="@string/update_pokemon"
         tools:layout="@layout/fragment_update_pokemon" >
         <argument
             android:name="UserPokemonId"
             app:argType="integer"
             android:defaultValue="1" />
+        <argument
+            android:name="nickName"
+            app:argType="string"
+            android:defaultValue="default" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_swap"
+        android:name="com.example.pokeapp.ui.team.SwapPokemonFragment"
+        android:label="@string/menu_swap"
+        tools:layout="@layout/fragment_swap_pokemon" />
 </navigation>
