@@ -16,12 +16,12 @@
         android:text="@string/enter_the_team"
         />
 
-    <EditText
-        android:id="@+id/input_auto_storage"
+    <AutoCompleteTextView
+        android:id="@+id/autoTextViewStorage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/pokemon"
-        android:inputType="text"/>
+        android:layout_margin="20dp"
+        android:hint="@string/pokemon"/>
 
     <TextView
         android:layout_margin="20dp"
@@ -30,18 +30,25 @@
         android:text="@string/leaves_the_team"
         />
 
-    <EditText
-        android:id="@+id/input_auto_team"
+    <AutoCompleteTextView
+        android:id="@+id/autoTextViewTeam"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/pokemon"
-        android:inputType="text"/>
+        android:layout_margin="20dp"
+        android:hint="@string/pokemon"/>
 
     <Button
         android:id="@+id/btn_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/confirm" />
+
+    <TextView
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/in_progress"
+        />
 
     <ProgressBar
         android:id="@+id/spinner"

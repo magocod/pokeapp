@@ -12,6 +12,7 @@
     <string name="temporary_title">Temporary title</string>
     <string name="temporary_message">Temporary message</string>
     <string name="unhandled_error">Unhandled error</string>
+    <string name="in_progress">In progress</string>
 
     <string name="name">Name</string>
     <string name="nick_name">NickName</string>

@@ -74,14 +74,14 @@
                 style="?attr/borderlessButtonStyle"
                 />
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/team_btn"
+                android:id="@+id/storage_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/storage"
                 style="?attr/borderlessButtonStyle"
                 />
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/storage_btn"
+                android:id="@+id/team_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/team"
