@@ -207,7 +207,7 @@ class PokemonRepository {
             Result.Success(response.body()!!)
         } catch (e: Throwable) {
             Log.d("PokeRepo swap", e.toString());
-            Result.Error(IOException("Error swap", e))
+            Result.Error(IOException(e.toString(), e))
         }
     }
 

@@ -8,8 +8,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 
 private const val AUTH_KEY = "Token"
-//private const val BASE_URL = "http://10.0.2.2:8000"
-private const val BASE_URL = "https://androvirtual12.pythonanywhere.com"
+private const val BASE_URL = "http://10.0.2.2:8000"
+//private const val BASE_URL = "https://androvirtual12.pythonanywhere.com"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -22,6 +22,7 @@ private val moshi = Moshi.Builder()
 private val retrofit = Retrofit.Builder()
 //    .client(okHttpClient)
     .addConverterFactory(MoshiConverterFactory.create(moshi))
+//    .addConverterFactory(GsonConverterFactory.create(GsonBuilder().serializeNulls().create()))
     .baseUrl(BASE_URL)
     .build()
 
@@ -62,7 +63,7 @@ interface PokemonApiService {
     @POST("pokemons/own/")
     suspend fun pokemonCatch(
         @Header("Authorization") token: String,
-        @Body pokemonCatch: PokemonCatch
+        @Body pokemonCatch: PokemonCatch,
     ): Response<CapturedPokemon>
 
     @GET("pokemons/own/party/")
@@ -75,7 +76,7 @@ interface PokemonApiService {
     suspend fun pokemonRename(
         @Path("id") id: Int,
         @Header("Authorization") token: String,
-        @Body pokemonRename: PokemonRename
+        @Body pokemonRename: PokemonRename,
     ): Response<CapturedPokemon>
 
     @DELETE("pokemons/own/{id}/")
@@ -87,7 +88,7 @@ interface PokemonApiService {
     @POST("pokemons/own/swap/")
     suspend fun swapPartyMember(
         @Header("Authorization") token: String,
-        @Body pokemonCatch: SwapPartyMember
+        @Body pokemonCatch: SwapPartyMember,
     ): Response<List<UserPokemon>>
 }
 

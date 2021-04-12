@@ -20,6 +20,7 @@
         android:id="@+id/autoTextViewStorage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:completionThreshold="1"
         android:layout_margin="20dp"
         android:hint="@string/pokemon"/>
 
@@ -42,13 +43,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/confirm" />
-
-    <TextView
-        android:layout_margin="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/in_progress"
-        />
 
     <ProgressBar
         android:id="@+id/spinner"

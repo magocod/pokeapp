@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:minHeight="64dp">
+
+    <ImageView
+        android:adjustViewBounds="true"
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bannete_sprite"
+        android:padding="16dp"/>
+
+    <TextView
+        android:id="@+id/content_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/imageView"
+        android:maxLines="1"
+        android:paddingTop="16dp"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        tools:text="first text" />
+
+    <TextView
+        android:id="@+id/content_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/content_1"
+        android:layout_gravity="center_vertical"
+        android:layout_toEndOf="@id/imageView"
+        android:maxLines="2"
+        android:textAppearance="?attr/textAppearanceBody2"
+        tools:text="second text" />
+
+</RelativeLayout>
