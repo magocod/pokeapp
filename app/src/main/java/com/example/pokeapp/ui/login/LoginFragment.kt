@@ -38,6 +38,7 @@ class LoginFragment : Fragment() {
         val usernameEditText = view.findViewById<EditText>(R.id.username)
         val passwordEditText = view.findViewById<EditText>(R.id.password)
         val loginButton = view.findViewById<Button>(R.id.login)
+        val signInButton = view.findViewById<Button>(R.id.button_sign_in)
         val loadingProgressBar = view.findViewById<ProgressBar>(R.id.loading)
 
         loginViewModel.isLoggedIn.observe(viewLifecycleOwner,
@@ -110,6 +111,10 @@ class LoginFragment : Fragment() {
                 usernameEditText.text.toString(),
                 passwordEditText.text.toString()
             )
+        }
+
+        signInButton.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerUserFragment)
         }
     }
 

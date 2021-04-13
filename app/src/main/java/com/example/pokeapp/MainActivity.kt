@@ -88,6 +88,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             })
+
     }
 
     private fun visibleOptionMenu(menu: Menu, isVisible: Boolean) {

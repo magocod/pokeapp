@@ -66,6 +66,7 @@
     <string name="example_username">androvirtual@gmail.com</string>
     <string name="example_user_password">123456</string>
     <string name="debug_login">Debug login</string>
+    <string name="create_account">Create account</string>
 
     <!-- Preference Titles -->
     <string name="setting">Setting</string>

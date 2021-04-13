@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_swap">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/nav_home"
@@ -35,10 +35,14 @@
         android:id="@+id/loginFragment"
         android:name="com.example.pokeapp.ui.login.LoginFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_login">
+        tools:layout="@layout/fragment_login"
+        app:startDestination="@id/action_loginFragment_to_nav_home">
         <action
             android:id="@+id/action_loginFragment_to_nav_home"
             app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerUserFragment"
+            app:destination="@id/registerUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -203,4 +207,9 @@
         android:name="com.example.pokeapp.ui.team.SwapPokemonFragment"
         android:label="@string/menu_swap"
         tools:layout="@layout/fragment_swap_pokemon" />
+    <fragment
+        android:id="@+id/registerUserFragment"
+        android:name="com.example.pokeapp.ui.login.RegisterUserFragment"
+        android:label="@string/create_account"
+        tools:layout="@layout/fragment_register_user" />
 </navigation>
