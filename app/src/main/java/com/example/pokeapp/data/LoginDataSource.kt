@@ -52,7 +52,6 @@ class LoginDataSource {
     }
 
     suspend fun logout(token: String): Result<Boolean> {
-        // TODO: revoke authentication
         try {
             val response = withTimeout(5_000) {
                 PokemonApi.retrofitService.logout(makeAuthHeader(token))
